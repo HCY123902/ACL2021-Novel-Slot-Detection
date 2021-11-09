@@ -150,6 +150,20 @@ def rose_metric(test_true_lines:list,test_pred_lines:list):
     spanf1(pd.Series(test_true_lines),pd.Series(test_pred_lines),True,1)
     nsd_metrics_100 = spanf1.get_metric(reset=True)
 
+    # Adjusted
+    # rose_f1_25 = nsd_metrics_25["f1-nsd"].round(2)
+    # rose_f1_50 = nsd_metrics_50["f1-nsd"].round(2)
+    # rose_f1_75 = nsd_metrics_75["f1-nsd"].round(2)
+    # rose_f1_100 = nsd_metrics_100["f1-nsd"].round(2)
+    # rose_p_25 = nsd_metrics_25["precision-nsd"].round(2)
+    # rose_p_50 = nsd_metrics_50["precision-nsd"].round(2)
+    # rose_p_75 = nsd_metrics_75["precision-nsd"].round(2)
+    # rose_p_100 = nsd_metrics_100["precision-nsd"].round(2)
+    # rose_r_25 = nsd_metrics_25["recall-nsd"].round(2)
+    # rose_r_50 = nsd_metrics_50["recall-nsd"].round(2)
+    # rose_r_75 = nsd_metrics_75["recall-nsd"].round(2)
+    # rose_r_100 = nsd_metrics_100["recall-nsd"].round(2)
+
     rose_f1_25 = nsd_metrics_25["f1-nsd"].round(2)
     rose_f1_50 = nsd_metrics_50["f1-nsd"].round(2)
     rose_f1_75 = nsd_metrics_75["f1-nsd"].round(2)
