@@ -110,8 +110,15 @@ lines = result.read().splitlines()
 entries = result.read().strip().split('\n\n')
 
 for entry in entries:
-    true = [tag2idx[line.split()[1]] for line in entry.splitlines()]
-    pred = [tag2idx[line.split()[2]] for line in entry.splitlines()]
+    true = []
+    pred = []
+    for line in entries.splitlines()):
+        if tag2idx[line.split()[1]] != "[SEP]":
+            true.append(tag2idx[line.split()[1]])
+            pred.append(tag2idx[line.split()[2]])
+
+    # true = [tag2idx[line.split()[1]] for line in entry.splitlines()]
+    # pred = [tag2idx[line.split()[2]] for line in entry.splitlines()]
     
     test_true_lines.append(true)
     test_pred_lines.append(pred)
