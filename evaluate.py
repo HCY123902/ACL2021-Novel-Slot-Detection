@@ -112,7 +112,7 @@ entries = result.read().strip().split('\n\n')
 for entry in entries:
     true = []
     pred = []
-    for line in entries.splitlines():
+    for line in entry.splitlines():
         if tag2idx[line.split()[1]] != "[SEP]":
             true.append(tag2idx[line.split()[1]])
             pred.append(tag2idx[line.split()[2]])
