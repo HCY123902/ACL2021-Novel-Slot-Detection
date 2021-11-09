@@ -27,6 +27,8 @@ import argparse
 import os
 import logging
 
+os.environ['CUDA_VISIBLE_DEVICES'] = '2'
+
 vocabulary.DEFAULT_OOV_TOKEN = "[UNK]"  # set for bert
 
 def parse_args():
