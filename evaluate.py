@@ -114,8 +114,8 @@ for entry in entries:
     pred = []
     for line in entry.splitlines():
         if tag2idx[line.split()[1]] != "[SEP]":
-            true.append(tag2idx[line.split()[1]])
-            pred.append(tag2idx[line.split()[2]])
+            true.append(line.split()[1])
+            pred.append(line.split()[2])
 
     # true = [tag2idx[line.split()[1]] for line in entry.splitlines()]
     # pred = [tag2idx[line.split()[2]] for line in entry.splitlines()]
@@ -129,8 +129,18 @@ rose_metric(test_true_lines,test_pred_lines)
 # test_pred_tokens = parse_token(test_y_ns)
 # test_true_tokens = parse_token(test_outputs["true_labels"])
 
-test_true_tokens =  [line.split()[1] for line in lines if len(line) > 0]
-test_pred_tokens =  [line.split()[2] for line in lines if len(line) > 0]
+test_true_tokens = []
+test_pred_tokens = []
+
+
+for line in lines:
+    if len(line) > 0 and tag2idx[line.split()[1]] != "[SEP]":
+        true.append(line.split()[1])
+        pred.append(line.split()[2])
+
+
+# test_true_tokens =  [line.split()[1] for line in lines if len(line) > 0]
+# test_pred_tokens =  [line.split()[2] for line in lines if len(line) > 0]
 
 
 token_metric(test_true_tokens,test_pred_tokens)
