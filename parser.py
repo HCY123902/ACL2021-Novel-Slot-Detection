@@ -21,14 +21,14 @@ if __name__ == '__main__':
     dev_raw = open('./{}/dev_dials.json'.format(args.raw_list))
     test_raw = open('./{}/test_dials.json'.format(args.raw_list))
 
-    train_result_i = open('./SnipsNSD5%/train/seq.in'.format(args.result), "w")
-    train_result_o = open('./SnipsNSD5%/train/seq.out'.format(args.result), "w")
+    train_result_i = open('./SnipsNSD/train/seq.in'.format(args.result), "w")
+    train_result_o = open('./SnipsNSD/train/seq.out'.format(args.result), "w")
 
-    dev_result_i = open('./SnipsNSD5%/valid/seq.in'.format(args.result), "w")
-    dev_result_o = open('./SnipsNSD5%/valid/seq.out'.format(args.result), "w")
+    dev_result_i = open('./SnipsNSD/valid/seq.in'.format(args.result), "w")
+    dev_result_o = open('./SnipsNSD/valid/seq.out'.format(args.result), "w")
 
-    test_result_i = open('./SnipsNSD5%/test/seq.in'.format(args.result), "w")
-    test_result_o = open('./SnipsNSD5%/test/seq.out'.format(args.result), "w")
+    test_result_i = open('./SnipsNSD/test/seq.in'.format(args.result), "w")
+    test_result_o = open('./SnipsNSD/test/seq.out'.format(args.result), "w")
 
     train_json = json.load(train_raw)
 
