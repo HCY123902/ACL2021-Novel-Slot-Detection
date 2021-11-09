@@ -31,6 +31,8 @@ vocabulary.DEFAULT_OOV_TOKEN = "[UNK]"  # set for bert
 
 VOCAB = ('<PAD>', '[CLS]', '[SEP]', 'O', 'B-ns', 'I-ns')
 
+valid_vocab = ['O', 'B-ns', 'I-ns']
+
 tag2idx = {tag: idx for idx, tag in enumerate(VOCAB)}
 idx2tag = {idx: tag for idx, tag in enumerate(VOCAB)}
 
@@ -107,19 +109,20 @@ result = open(args.result, "r", encoding='utf-8')
 
 lines = result.read().splitlines()
 
+result.close()
+
+result = open(args.result, "r", encoding='utf-8')
+
 entries = result.read().strip().split('\n\n')
 
 for entry in entries:
     true = []
     pred = []
     for line in entry.splitlines():
-        if tag2idx[line.split()[1]] != "[SEP]":
+        if line.split()[1] in valid_vocab and line.split()[2] in valid_vocab:
             true.append(line.split()[1])
             pred.append(line.split()[2])
 
-    # true = [tag2idx[line.split()[1]] for line in entry.splitlines()]
-    # pred = [tag2idx[line.split()[2]] for line in entry.splitlines()]
-    
     test_true_lines.append(true)
     test_pred_lines.append(pred)
 
@@ -134,9 +137,9 @@ test_pred_tokens = []
 
 
 for line in lines:
-    if len(line) > 0 and tag2idx[line.split()[1]] != "[SEP]":
-        true.append(line.split()[1])
-        pred.append(line.split()[2])
+    if len(line) > 0 and line.split()[1] in valid_vocab and line.split()[2] in valid_vocab:
+        test_true_tokens.append(line.split()[1])
+        test_pred_tokens.append(line.split()[2])
 
 
 # test_true_tokens =  [line.split()[1] for line in lines if len(line) > 0]
