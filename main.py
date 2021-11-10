@@ -210,7 +210,37 @@ if args.mode in ["test","both"]:
     test_true_tokens = parse_token(test_outputs["true_labels"])
     token_metric(test_true_tokens,test_pred_tokens)
 
-    
+    # Added
+    y_pred = np.array(test_pred_tokens)
+    y_true = np.array(test_true_tokens)
 
+    num_proposed = len(y_pred)
+    num_correct = (np.logical_and(y_true==y_pred, y_true>1)).astype(np.int).sum()
+    num_gold = len(y_true)
 
+    print(f"num_proposed:{num_proposed}")
+    print(f"num_correct:{num_correct}")
+    print(f"num_gold:{num_gold}")
+
+    try:
+        precision = num_correct / num_proposed
+    except ZeroDivisionError:
+        precision = 1.0
+
+    try:
+        recall = num_correct / num_gold
+    except ZeroDivisionError:
+        recall = 1.0
+
+    try:
+        f1 = 2*precision*recall / (precision + recall)
+    except ZeroDivisionError:
+        if precision*recall==0:
+            f1=1.0
+        else:
+            f1=0
+
+    print("token_level_precision=%.2f"%precision)
+    print("token_level_recall=%.2f"%recall)
+    print("token_level_f1=%.2f"%f1)
     
