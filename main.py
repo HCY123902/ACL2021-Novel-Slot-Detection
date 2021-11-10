@@ -164,7 +164,7 @@ if args.mode in ["test","both"]:
     else:
         model_dir = os.path.join(args.output_dir,args.dataset)
     # predict
-    archive = load_archive(model_dir,cuda_device=args.cuda)
+    archive = load_archive(model_dir,cuda_device=0)
     predictor = Predictor.from_archive(archive=archive, predictor_name="slot_filling_predictor")
     train_outputs = predictor.predict_multi(file_path = os.path.join("data",args.dataset,"train") ,batch_size = args.batch_size)
     test_outputs = predictor.predict_multi(file_path = os.path.join("data",args.dataset,"test") ,batch_size = args.batch_size)
