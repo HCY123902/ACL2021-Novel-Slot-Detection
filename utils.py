@@ -118,8 +118,14 @@ def token_metric(true:list,predict:list):
     r_nsd = token_metrics["recall-nsd"]
     p_nsd = token_metrics["precision-nsd"]
 
+    # Added
+    f_overall = token_metrics["f1-overall"]
+    r_overall = token_metrics["recall-overall"]
+    p_overall = token_metrics["precision-overall"]
+
     print(f"=====> Token(Experiment) <=====")
     print(f"NSD:  f:{f_nsd}, p:{p_nsd}, r:{r_nsd}\n")
+    print(f"Other:  f:{f_overall}, p:{p_overall}, r:{r_overall}\n")
 
 def rose_metric(test_true_lines:list,test_pred_lines:list):
     """

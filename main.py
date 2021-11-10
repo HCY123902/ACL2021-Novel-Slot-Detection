@@ -241,7 +241,7 @@ if args.mode in ["test","both"]:
         else:
             f1=0
 
-    print("token_level_precision=%.2f"%precision)
-    print("token_level_recall=%.2f"%recall)
-    print("token_level_f1=%.2f"%f1)
+    print("token_level_precision=%.5f"%precision)
+    print("token_level_recall=%.5f"%recall)
+    print("token_level_f1=%.5f"%f1)
     
