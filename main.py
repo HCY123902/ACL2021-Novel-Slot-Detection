@@ -215,7 +215,8 @@ if args.mode in ["test","both"]:
     y_true = np.array(test_true_tokens)
 
     num_proposed = len(y_pred)
-    num_correct = (np.logical_and(y_true==y_pred, y_true>1)).astype(np.int).sum()
+    #num_correct = (np.logical_and(y_true==y_pred, y_true>1)).astype(np.int).sum()
+    num_correct = (y_true==y_pred).astype(np.int).sum()
     num_gold = len(y_true)
 
     print(f"num_proposed:{num_proposed}")
