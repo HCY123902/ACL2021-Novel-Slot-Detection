@@ -65,8 +65,8 @@ if __name__ == '__main__':
                     at_l = at_l + " " + at.lower()
                     al_l = al_l + " " + al
 
-            train_result_i.write("{} {}\n".format(ut_l, at_l))
-            train_result_o.write("{} {}\n".format(ul_l, al_l))
+            train_result_i.write("{}{}\n".format(ut_l, at_l))
+            train_result_o.write("{}{}\n".format(ul_l, al_l))
     
     dev_json = json.load(dev_raw)
 
@@ -95,7 +95,7 @@ if __name__ == '__main__':
                     al_l = al_l + " " + al
 
             dev_result_i.write("{}{}\n".format(ut_l, at_l))
-            dev_result_o.write("{} {}\n".format(ul_l, al_l))
+            dev_result_o.write("{}{}\n".format(ul_l, al_l))
 
     test_json = json.load(test_raw)
 
@@ -123,6 +123,6 @@ if __name__ == '__main__':
                     at_l = at_l + " " + at.lower()
                     al_l = al_l + " " + al
             
-            test_result_i.write("{} {}\n".format(ut_l, at_l))
-            test_result_o.write("{} {}\n".format(ul_l, al_l))
+            test_result_i.write("{}{}\n".format(ut_l, at_l))
+            test_result_o.write("{}{}\n".format(ul_l, al_l))
 
