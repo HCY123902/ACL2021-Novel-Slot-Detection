@@ -166,28 +166,28 @@ if args.mode in ["test","both"]:
     # predict
     archive = load_archive(model_dir,cuda_device=0)
     predictor = Predictor.from_archive(archive=archive, predictor_name="slot_filling_predictor")
-    train_outputs = predictor.predict_multi(file_path = os.path.join("data",args.dataset,"train") ,batch_size = args.batch_size)
+    # train_outputs = predictor.predict_multi(file_path = os.path.join("data",args.dataset,"train") ,batch_size = args.batch_size)
     test_outputs = predictor.predict_multi(file_path = os.path.join("data",args.dataset,"test") ,batch_size = args.batch_size)
     ns_labels = ["ns","B-ns","I-ns"]
 
     # GDA
-    gda = LinearDiscriminantAnalysis(solver="lsqr", shrinkage=None, store_covariance=True)
-    gda.fit(np.array(train_outputs["encoder_outs"]), train_outputs["true_labels"])
-    gda_means = gda.means_ 
+    # gda = LinearDiscriminantAnalysis(solver="lsqr", shrinkage=None, store_covariance=True)
+    # gda.fit(np.array(train_outputs["encoder_outs"]), train_outputs["true_labels"])
+    # gda_means = gda.means_ 
 
-    test_gda_result = confidence(np.array(test_outputs["encoder_outs"]), gda.means_, "euclidean", gda.covariance_)
-    test_score = pd.Series(test_gda_result.min(axis=1))
-    test_ns_idx = [idx_vo for idx_vo , _vo in enumerate(test_outputs["true_labels"]) if _vo in ns_labels]
-    test_ind_idx = [idx_vi for idx_vi , _vi in enumerate(test_outputs["true_labels"]) if _vi not in ns_labels]
-    test_ns_score = test_score[test_ns_idx]
-    test_ind_score = test_score[test_ind_idx]
+    # test_gda_result = confidence(np.array(test_outputs["encoder_outs"]), gda.means_, "euclidean", gda.covariance_)
+    # test_score = pd.Series(test_gda_result.min(axis=1))
+    # test_ns_idx = [idx_vo for idx_vo , _vo in enumerate(test_outputs["true_labels"]) if _vo in ns_labels]
+    # test_ind_idx = [idx_vi for idx_vi , _vi in enumerate(test_outputs["true_labels"]) if _vi not in ns_labels]
+    # test_ns_score = test_score[test_ns_idx]
+    # test_ind_score = test_score[test_ind_idx]
 
     # threshold
     threshold = args.threshold
     
     # override
     test_y_ns = pd.Series(test_outputs["predict_labels"])
-    test_y_ns[test_score[test_score> threshold].index] = "ns"
+    # test_y_ns[test_score[test_score> threshold].index] = "ns"
     test_y_ns = list(test_y_ns)
 
     # Metrics —— ROSE
@@ -245,17 +245,17 @@ if args.mode in ["test","both"]:
     print("token_level_recall=%.5f"%recall)
     print("token_level_f1=%.5f"%f1)
 
-    I_num_proposed = len(y_pred[y_pred==5])
-    I_num_correct = (np.logical_and(y_true==y_pred, y_true==5)).astype(np.int).sum()
-    I_num_gold = len(y_true[y_true==5])
+    I_num_proposed = len(y_pred[y_pred=="I"])
+    I_num_correct = (np.logical_and(y_true==y_pred, y_true=="I")).astype(np.int).sum()
+    I_num_gold = len(y_true[y_true=="I"])
 
-    B_num_proposed = len(y_pred[y_pred==4])
-    B_num_correct = (np.logical_and(y_true==y_pred, y_true==4)).astype(np.int).sum()
-    B_num_gold = len(y_true[y_true==4])
+    B_num_proposed = len(y_pred[y_pred=="B"])
+    B_num_correct = (np.logical_and(y_true==y_pred, y_true=="B")).astype(np.int).sum()
+    B_num_gold = len(y_true[y_true=="B"])
 
-    O_num_proposed = len(y_pred[y_pred==3])
-    O_num_correct = (np.logical_and(y_true==y_pred, y_true==3)).astype(np.int).sum()
-    O_num_gold = len(y_true[y_true==3])
+    O_num_proposed = len(y_pred[y_pred=="O"])
+    O_num_correct = (np.logical_and(y_true==y_pred, y_true=="O")).astype(np.int).sum()
+    O_num_gold = len(y_true[y_true=="O"])
 
     try:
         I_precision = I_num_correct / I_num_proposed
