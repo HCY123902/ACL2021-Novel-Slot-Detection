@@ -244,4 +244,77 @@ if args.mode in ["test","both"]:
     print("token_level_precision=%.5f"%precision)
     print("token_level_recall=%.5f"%recall)
     print("token_level_f1=%.5f"%f1)
+
+    I_num_proposed = len(y_pred[y_pred==5])
+    I_num_correct = (np.logical_and(y_true==y_pred, y_true==5)).astype(np.int).sum()
+    I_num_gold = len(y_true[y_true==5])
+
+    B_num_proposed = len(y_pred[y_pred==4])
+    B_num_correct = (np.logical_and(y_true==y_pred, y_true==4)).astype(np.int).sum()
+    B_num_gold = len(y_true[y_true==4])
+
+    O_num_proposed = len(y_pred[y_pred==3])
+    O_num_correct = (np.logical_and(y_true==y_pred, y_true==3)).astype(np.int).sum()
+    O_num_gold = len(y_true[y_true==3])
+
+    try:
+        I_precision = I_num_correct / I_num_proposed
+    except ZeroDivisionError:
+        I_precision = 1.0
+
+    try:
+        I_recall = I_num_correct / I_num_gold
+    except ZeroDivisionError:
+        I_recall = 1.0
+
+    try:
+        I_f1 = 2*I_precision*I_recall / (I_precision + I_recall)
+    except ZeroDivisionError:
+        if I_precision*I_recall==0:
+            I_f1=1.0
+        else:
+            I_f1=0
+
+    try:
+        B_precision = B_num_correct / B_num_proposed
+    except ZeroDivisionError:
+        B_precision = 1.0
+
+    try:
+        B_recall = B_num_correct / B_num_gold
+    except ZeroDivisionError:
+        B_recall = 1.0
+
+    try:
+        B_f1 = 2*B_precision*B_recall / (B_precision + B_recall)
+    except ZeroDivisionError:
+        if B_precision*B_recall==0:
+            B_f1=1.0
+        else:
+            B_f1=0
+
+    try:
+        O_precision = O_num_correct / O_num_proposed
+    except ZeroDivisionError:
+        O_precision = 1.0
+
+    try:
+        O_recall = O_num_correct / O_num_gold
+    except ZeroDivisionError:
+        O_recall = 1.0
+
+    try:
+        O_f1 = 2*O_precision*O_recall / (O_precision + O_recall)
+    except ZeroDivisionError:
+        if O_precision*O_recall==0:
+            O_f1=1.0
+        else:
+            O_f1=0
     
+    macro_precision = (I_precision + B_precision + O_precision) / 3
+    macro_recall = (I_recall + B_recall + O_recall) / 3
+    macro_f1 = (I_f1 + B_f1 + O_f1) / 3
+    
+    print("marco_precision=%.5f"%macro_precision)
+    print("marco_recall=%.5f"%macro_recall)
+    print("marco_f1=%.5f"%macro_f1)
